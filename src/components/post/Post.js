@@ -9,7 +9,7 @@ const Post = () => {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src="assets/person/4.jpeg"
+              src="/assets/person/4.jpeg"
               alt=""
             />
             <span className="postUsername">Dora Hawks</span>
@@ -21,7 +21,7 @@ const Post = () => {
         </div>
             <div className="postCenter">
           <span className="postText">Love For All, Hatred For None.</span>
-          <img className="postImg" src="assets/post/1.jpeg" alt="" />
+          <img className="postImg" src="/assets/post/1.jpeg" alt="" />
         </div>
             <div className="postBottom">
           <div className="postBottomLeft">
