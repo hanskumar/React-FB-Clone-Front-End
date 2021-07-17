@@ -1,7 +1,50 @@
-import './register.css'
+import { React } from 'react'
 import { Link } from "react-router-dom";
+import { useRef } from 'react';
+import './register.css'
+import axios from "axios";
+import { useHistory } from "react-router";
 
-const register = () => {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+const Register = () => {
+
+    const name = useRef();
+    const email = useRef();
+    const password = useRef();
+    const passwordAgain = useRef();
+    
+    const history = useHistory();
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        
+        const user = {
+            name: name.current.value,
+            email: email.current.value,
+            password: password.current.value,
+        };
+
+        try {
+            const response = await axios.post("/register", user);
+            
+            if(response.data.status == false){
+                toast.error(response.data.message);
+
+            } else if(response.data.status == true){
+                toast.success(response.data.message);
+                history.push("/login");
+            }
+
+        } catch (err) {
+            console.log(err);
+            //M.toast({html: "Something went wrong,Please try again!",classes:"#c62828 red darken-3"});
+            toast.error("Something went wrong,Please try again!");
+        }
+    }
+ 
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -12,22 +55,27 @@ const register = () => {
                 </span>
                 </div>
                 <div className="loginRight">
-                <div className="loginBox">
-                    <input placeholder="Username" className="loginInput" />
-                    <input placeholder="Email" className="loginInput" />
-                    <input placeholder="Password" className="loginInput" />
-                    <input placeholder="Password Again" className="loginInput" />
+                <form className="loginBox" onSubmit={handleSubmit}>
+                
+                    <input type="text" placeholder="Full Name" className="loginInput"  ref={name}/>
+                    <input type="email" placeholder="Email" className="loginInput"  ref={email}/>
+                    <input type="password" placeholder="Password" className="loginInput"  ref={password}/>
+                    <input type="password" placeholder="Password Again" className="loginInput"  ref={passwordAgain}/>
                     <button className="loginButton">Sign Up</button>
                     
                     <button className="loginRegisterButton"> 
                          <Link to="/login" >Log into Account</Link>
                     </button>
+                </form>
 
-                </div>
+                
+                <ToastContainer />
+
+
                 </div>
             </div>
             </div>
     )
 }
 
-export default register
+export default Register
