@@ -6,6 +6,11 @@
     align-items: center;
     justify-content: center;
   }
+
+  .loginRegisterButton a{
+    text-decoration: none;
+    color:white;
+  }
   
   .loginWrapper {
     width: 70%;

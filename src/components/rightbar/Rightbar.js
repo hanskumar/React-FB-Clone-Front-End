@@ -1,4 +1,5 @@
 import "./rightbar.css";
+import OnlineFriends from '../online/online'
 
 const Rightbar = () => {
     return (
@@ -14,7 +15,11 @@ const Rightbar = () => {
                 <img className="rightbarAd" src="assets/ad.png" alt="" />
                 <h4 className="rightbarTitle">Online Friends</h4>
                 <ul className="rightbarFriendList">
-                
+                    <OnlineFriends/>
+                    <OnlineFriends/>
+                    <OnlineFriends/>
+                    <OnlineFriends/>
+                    <OnlineFriends/>
                 </ul>
       
             </div>

@@ -1,4 +1,3 @@
-import { React } from 'react'
 import { Link } from "react-router-dom";
 import { useRef } from 'react';
 import './register.css'
@@ -67,11 +66,7 @@ const Register = () => {
                          <Link to="/login" >Log into Account</Link>
                     </button>
                 </form>
-
-                
                 <ToastContainer />
-
-
                 </div>
             </div>
             </div>
