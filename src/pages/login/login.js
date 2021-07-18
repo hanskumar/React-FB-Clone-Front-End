@@ -1,10 +1,13 @@
 import './login.css'
 import { Link,useHistory } from "react-router-dom";
-import { useRef } from 'react';
+import { useRef,useContext } from 'react';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { CircularProgress } from "@material-ui/core";
+
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
 
@@ -13,8 +16,14 @@ const Login = () => {
 
     const history = useHistory();
 
+    const { isFetching, dispatch } = useContext(AuthContext);
+
+    //console.log(isFetching);
+
     const handleSubmit = async(e)=>{
         e.preventDefault();
+
+        dispatch({ type: "LOGIN_START" });
         
         const user = {
             email: email.current.value,
@@ -23,13 +32,19 @@ const Login = () => {
 
         try {
             const response = await axios.post("/login", user);
-            
+
             if(response.data.status === false){
                 toast.error(response.data.message);
 
             } else if(response.data.status === true){
-                toast.success(response.data.message);
+
+                dispatch({ type: "LOGIN_SUCCESS", payload: response.data.data });
+
+                localStorage.setItem("accessToken",response.data.accessToken)
+                localStorage.setItem("userdata",JSON.stringify(response.data.data))
+
                 history.push("/");
+                toast.success(response.data.message);
             }
 
         } catch (err) {
@@ -37,6 +52,8 @@ const Login = () => {
             console.log(err.response.data.message)
             //M.toast({html: "Something went wrong,Please try again!",classes:"#c62828 red darken-3"});
             toast.error(err.response.data.message);
+
+            dispatch({ type: "LOGIN_FAILURE", payload: err });
         }
     }
 
@@ -54,7 +71,15 @@ const Login = () => {
                 <form className="loginBox" onSubmit={handleSubmit}>
                     <input type="email" placeholder="Email" className="loginInput" ref={email} />
                     <input type="password" placeholder="Password" className="loginInput" ref={password}/>
-                    <button className="loginButton">Log In</button>
+                    <button className="loginButton">
+                        
+                    {isFetching ? (
+                        <CircularProgress color="white" size="20px" />
+                    ) : (
+                        "Log In"
+                    )}
+
+                    </button>
                     <span className="loginForgot">Forgot Password?</span>
                     <button className="loginRegisterButton"> 
                          <Link to="/register" >Create a New Account</Link>

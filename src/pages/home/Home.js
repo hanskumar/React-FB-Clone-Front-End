@@ -4,6 +4,9 @@ import Rightbar from "../../components/rightbar/Rightbar"
 import Feed from "../../components/feed/Feed"
 import "./home.css"
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Home = () => {
     return (
         <>
@@ -13,6 +16,8 @@ const Home = () => {
                 <Feed/>
                 <Rightbar/>
             </div>
+
+            <ToastContainer />
         </>
     );
 }

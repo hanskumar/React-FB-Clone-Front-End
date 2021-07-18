@@ -1,7 +1,15 @@
 import "./post.css";
 import { MoreVert } from "@material-ui/icons";
+import { AuthContext } from '../../context/AuthContext'
+import axios from 'axios';
+import { useContext , useRef,useState,useEffect} from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
-const Post = () => {
+const Post = (post) => {
+
+    console.log("ALL POST::",post.post.createdAt);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
     return (
         <div className="post">
             <div className="postWrapper">
@@ -9,10 +17,10 @@ const Post = () => {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src="/assets/person/4.jpeg"
+              src={PF + post.post.userId.profile_image } 
               alt=""
             />
-            <span className="postUsername">Dora Hawks</span>
+            <span className="postUsername">{post.post.userId.name }</span>
             <span className="postDate">15 mins ago</span>
           </div>
           <div className="postTopRight">
@@ -20,8 +28,8 @@ const Post = () => {
           </div>
         </div>
             <div className="postCenter">
-          <span className="postText">Love For All, Hatred For None.</span>
-          <img className="postImg" src="/assets/post/1.jpeg" alt="" />
+          <span className="postText">{post.post.descprtion }</span>
+          <img className="postImg" src={post.post.image } alt="" />
         </div>
             <div className="postBottom">
           <div className="postBottomLeft">

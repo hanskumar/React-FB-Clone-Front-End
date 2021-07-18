@@ -11,7 +11,14 @@ import {
   School,
 } from "@material-ui/icons";
 
+import { useContext } from 'react';
+import {Link,useHistory } from 'react-router-dom';
+import { AuthContext } from "../../context/AuthContext";
+
 const Sidebar = () => {
+    const history = useHistory();
+    const { user, dispatch } = useContext(AuthContext);
+
     return (
         <div className="sidebar">
         <div className="sidebarWrapper">
@@ -52,6 +59,17 @@ const Sidebar = () => {
               <School className="sidebarIcon" />
               <span className="sidebarListItemText">Courses</span>
             </li>
+
+            <li className="sidebarListItem">
+              <School className="sidebarIcon" />
+              <span className="sidebarListItemText" style={{cursor: "Pointer",color: "red"}} onClick={()=>{
+                    alert("logout");
+                    localStorage.clear();
+                    dispatch({type:"LOGOUT"})
+                    history.push('/') 
+                }}>Logout</span>
+            </li>
+
           </ul>
           <button className="sidebarButton">Show More</button>
           <hr className="sidebarHr" />
