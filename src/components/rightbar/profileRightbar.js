@@ -1,9 +1,16 @@
 import "./rightbar.css";
+import { Add, Remove } from "@material-ui/icons";
 
 const profileRightbar = () => {
+    const followed = true;
     return (
         <div className="rightbar">
         <div className="rightbarWrapper">
+
+           <button className="rightbarFollowButton">
+             {followed ? "Unfollow" : "Follow"}
+             {followed ? <Remove /> : <Add />}
+           </button>
         
             <h4 className="rightbarTitle">User information</h4>
             <div className="rightbarInfo">

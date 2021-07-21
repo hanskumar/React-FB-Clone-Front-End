@@ -35,7 +35,7 @@ const Share = () => {
                 const response = await axios.post("/createPost", newPost,config);
                 console.log(response);
                 toast.success(response.data.message);
-                //window.location.reload();
+                window.location.reload();
             } catch (err) { 
                 //console.log(err);
                 toast.error(err.response.data.message); 

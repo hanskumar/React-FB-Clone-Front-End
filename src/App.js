@@ -2,6 +2,8 @@ import Home from "./pages/home/Home"
 import Profile from './pages/profile/profile'
 import Login from './pages/login/Login'
 import Register from "./pages/register/Register"
+import Messenger from "./pages/messenger/Messenger"
+
 import { useContext } from 'react';
 
 import {
@@ -34,6 +36,11 @@ function App() {
           <Route path="/profile/:username">
             <Profile />
           </Route>
+
+          <Route path="/messenger">
+            {!user ? <Redirect to="/" /> : <Messenger />}
+          </Route>
+
         </Switch>
        
       </Router>
